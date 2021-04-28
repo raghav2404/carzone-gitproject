@@ -13,3 +13,5 @@ class TeamAdmin(admin.ModelAdmin): # team model in admin customization
      search_fields =('first_name','last_name','designation') #search on these basis
      list_filter = ('designation',)  #filter on these basis
 admin.site.register(Team,TeamAdmin) 
+
+
