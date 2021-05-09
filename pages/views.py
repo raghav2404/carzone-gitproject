@@ -2,15 +2,28 @@ from django.shortcuts import render
 from .models import Team
 from cars.models import Car
 # Create your views here.
+
+#In django a set of all objects of a model is called a Queryset which can be passed,sliced,modified using Model.objects.__()
 def home(request):
     teams = Team.objects.all()
     featured_cars=Car.objects.order_by('-created_date').filter(is_featured=True) #fetched data from db in form of objects
     all_cars=Car.objects.order_by('-created_date')
+    #Fetch all distinct model,city,year, body style from Car Model/db
+    #flat=True will fetch distinct values not tuples
+    model_search=Car.objects.values_list('model', flat=True).distinct()
+    city_search=Car.objects.values_list('city',flat=True).distinct()
+    year_search=Car.objects.values_list('year',flat=True).distinct()
+    body_style_search=Car.objects.values_list('body_style',flat=True).distinct()
     data = {
       'teams' : teams,
       'featured_cars':featured_cars, #passed data to template in form of dictionary having  key as variable name and value as objects from db
       'all_cars':all_cars,
-    }
+      'model_search':model_search,
+      'city_search':city_search,
+      'year_search':year_search,
+      'body_style_search':body_style_search,
+      
+          }
     return render(request ,'pages/home.html',data)
 # DB<--->VIEW<--->TEMPLATE
 def about(request):
