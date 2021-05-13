@@ -479,3 +479,5 @@ $(function () {
         }
     }).trigger("resize");
 })(jQuery);
+setTimeout(function(){$('#message').fadeOut('slow');},1000)
+//error msg in registration form disappers in 4 sec

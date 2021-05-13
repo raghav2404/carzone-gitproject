@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Team
 from cars.models import Car
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.contrib import messages
 # Create your views here.
 
 #In django a set of all objects of a model is called a Queryset which can be passed,sliced,modified using Model.objects.__()
@@ -34,6 +37,20 @@ def about(request):
     return render(request,'pages/about.html',data)
 
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        phone = request.POST['phone']
+        message =request.POST['message']
+
+        email_subject = 'You have a new message from Carzone website regarding' +subject
+        message_body ='Name:' + name + '. Email'+email+' . Phone: '+phone +'Message:'+message
+        admin_info=User.objects.get(is_superuser=True)
+        admin_email =admin_info.email
+        send_mail(email_subject,message_body,'raghavrastogi1990@gmail.com',[admin_email],fail_silently=False,)
+        messages.success(request,'Thanks for contacting. we will contact you shortly')
+        return redirect('contact')
     return render(request,'pages/contact.html')
 
 def services(request):
