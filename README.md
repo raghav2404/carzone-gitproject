@@ -21,4 +21,5 @@ Heroku -- (Deployment)
 I have mainly worked on backend web development in this project. it uses bootstrap template and css files for the frontend part.
 I have build django apps,models(db) configured them, inquiry,contact,mail sending and login ,authenication part.Also customised backend--django admin to display data clearly.
 
+
 https://kapwi.ng/c/8FCQu3I3
